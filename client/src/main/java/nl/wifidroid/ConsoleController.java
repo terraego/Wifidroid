@@ -42,6 +42,7 @@ public class ConsoleController implements ActionListener {
         synchronized (handlers) {
             if (!handlers.contains(handler)) {
                 handlers.add(handler);
+                handler.setConsole(this);
             }
         }
     }
@@ -49,6 +50,7 @@ public class ConsoleController implements ActionListener {
     public void removeConsoleCommandHandler(ConsoleCommandHandler handler) {
         synchronized (handlers) {
             handlers.remove(handler);
+            handler.setConsole(null);
         }
     }
 
