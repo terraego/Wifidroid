@@ -8,7 +8,7 @@ import java.net.UnknownHostException;
 
 public class ConnectionHandler extends ConsoleCommandHandler {
 
-	public static final int PORT = 12345;
+	public static final int PORT = 8888;
 	private Socket socket;
 
 	@Override
@@ -42,13 +42,16 @@ public class ConnectionHandler extends ConsoleCommandHandler {
 	}
 
 	private void connect(String ip) throws UnknownHostException, IOException {
+		print("connecting to " + ip + ":" + PORT);
 		socket = new Socket(ip, PORT);
+		print("connected");
 	}
 
 	private void disconnect() throws IOException {
 		if (socket != null) {
 			socket.close();
 			socket = null;
+			print("disconnected");
 		}
 	}
 
@@ -60,12 +63,14 @@ public class ConnectionHandler extends ConsoleCommandHandler {
 		if (!isConnected()) {
 			throw new RuntimeException("not connected");
 		}
-		
+
 		Writer out = null;
 		try {
 			out = new PrintWriter(socket.getOutputStream(), true);
 			out.write(message.trim());
 			out.flush();
+			
+			print("message sent: "+message);
 		} catch (IOException e) {
 			throw e;
 		} finally {
