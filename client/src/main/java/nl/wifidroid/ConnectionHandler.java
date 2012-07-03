@@ -8,7 +8,7 @@ import java.net.UnknownHostException;
 
 public class ConnectionHandler extends ConsoleCommandHandler {
 
-	public static final int PORT = 8888;
+	public static final int PORT = 12345;
 	private Socket socket;
 
 	@Override
