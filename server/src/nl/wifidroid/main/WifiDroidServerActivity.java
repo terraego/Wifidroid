@@ -20,35 +20,6 @@ public class WifiDroidServerActivity extends Activity {
 
 	private WifidroidService Backgroundservice = null;
 
-	private Handler serviceHandler = new Handler(){
-		@Override
-		public void handleMessage(Message msg){
-			Toast.makeText(WifiDroidServerActivity.this, "Ontvangt iets",Toast.LENGTH_LONG).show();
-		}
-	};
-	
-	private Runnable thread = new Thread(){
-		
-	@Override
-	public void run(){
-		
-		Looper.prepare();
-		Looper.loop();
-		
-		try{
-			
-			ServerSocket server = new ServerSocket(12345);
-
-			while((server.accept())!=null){
-			serviceHandler.handleMessage(null);
-			}
-			
-		} catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-	};
 	
 	/** Called when the activity is first created. */
 	@Override
