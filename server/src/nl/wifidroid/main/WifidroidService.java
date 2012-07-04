@@ -1,7 +1,11 @@
 package nl.wifidroid.main;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -23,15 +27,7 @@ public class WifidroidService extends Service {
 	private final IBinder mBinder = new LocalBinder();
 	private ServerThread thread;
 
-	private Handler notificationHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			String currentThread = Thread.currentThread().getName();
-			Toast.makeText(WifidroidService.this,
-					"currentThread = " + currentThread, Toast.LENGTH_LONG)
-					.show();
-		}
-	};
+	private Handler handler;
 
 	public class LocalBinder extends Binder {
 		WifidroidService getService() {
@@ -41,15 +37,17 @@ public class WifidroidService extends Service {
 
 	@Override
 	public void onCreate() {
+		handler = new Handler();
+
 		notifier = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		showNotification();
+		// showNotification();
 		thread = new ServerThread();
 		thread.start();
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.i("Wifidroid", "Started" + startId + ": " + intent);
+		showMessage("Started" + startId + ": " + intent);
 		return START_STICKY;
 	}
 
@@ -58,7 +56,7 @@ public class WifidroidService extends Service {
 		notifier.cancel(R.string.hello_world);
 		thread.quit();
 
-		Toast.makeText(this, "Service stopped", Toast.LENGTH_SHORT).show();
+		showMessage("Service stopped");
 	}
 
 	@Override
@@ -66,20 +64,31 @@ public class WifidroidService extends Service {
 		return mBinder;
 	}
 
-	private void showNotification() {
-		CharSequence text = "Service started";
+	private void showMessage(final CharSequence text) {
+		Log.d("WifiDroidService", text.toString());
+		handler.post(new Runnable() {
 
-		Notification notification = new Notification(R.drawable.ic_launcher,
-				text, System.currentTimeMillis());
-
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-				new Intent(this, WifiDroidServerActivity.class), 0);
-
-		notification.setLatestEventInfo(this, "Service started", text,
-				contentIntent);
-
-		notifier.notify(R.string.hello_world, notification);
+			public void run() {
+				Toast.makeText(WifidroidService.this, text, Toast.LENGTH_SHORT)
+						.show();
+			}
+		});
 	}
+
+	// private void showNotification() {
+	// CharSequence text = "Service started";
+	//
+	// Notification notification = new Notification(R.drawable.ic_launcher,
+	// text, System.currentTimeMillis());
+	//
+	// PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+	// new Intent(this, WifiDroidServerActivity.class), 0);
+	//
+	// notification.setLatestEventInfo(this, "Service started", text,
+	// contentIntent);
+	//
+	// notifier.notify(R.string.hello_world, notification);
+	// }
 
 	private class ServerThread extends Thread {
 		private Looper looper;
@@ -94,13 +103,16 @@ public class WifidroidService extends Service {
 		public void run() {
 			Looper.prepare();
 			looper = Looper.myLooper();
+			showMessage("Starting server thread");
 			try {
 				server = new ServerSocket(PORT);
-				while ((server.accept()) != null) {
-					Log.d("WifiService", "incoming connection!!!");
-					notificationHandler.handleMessage(null);
+				Socket client = null;
+				while ((client = server.accept()) != null) {
+					ClientThread clientThread = new ClientThread(client);
+					clientThread.start();
 				}
-
+				server.close();
+				Looper.myLooper().quit();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -119,6 +131,45 @@ public class WifidroidService extends Service {
 				looper.quit();
 			}
 
+		}
+	}
+
+	private class ClientThread extends Thread {
+		private Socket client;
+
+		public ClientThread(Socket client) {
+			this.client = client;
+
+			setName("client thread");
+			setDaemon(true);
+		}
+
+		@Override
+		public void run() {
+			Looper.prepare();
+			InputStream in = null;
+			String line = null;
+			showMessage("client " + client.getInetAddress() + " connected");
+			try {
+				in = client.getInputStream();
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(in));
+				while ((line = reader.readLine()) != null) {
+					showMessage("client: " + line);
+				}
+				client.close();
+				Looper.myLooper().quit();
+			} catch (IOException e) {
+				Log.e("WifidroidService",
+						"and error occured while trying to read messages from the client");
+			} finally {
+				try {
+					in.close();
+				} catch (IOException e) {
+					// dont care
+				}
+			}
+			Looper.loop();
 		}
 	}
 
