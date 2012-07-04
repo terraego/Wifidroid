@@ -22,6 +22,7 @@ import android.os.Binder;
 
 public class WifidroidService extends Service {
 
+	public static final String TAG = "WifiDroid service";
 	public static final int PORT = 12345;
 	private NotificationManager notifier;
 	private final IBinder mBinder = new LocalBinder();
@@ -92,7 +93,7 @@ public class WifidroidService extends Service {
 
 	private class ServerThread extends Thread {
 		private Looper looper;
-		private ServerSocket server;
+		private ServerSocket serverSocket;
 
 		public ServerThread() {
 			setName("server thread");
@@ -103,26 +104,37 @@ public class WifidroidService extends Service {
 		public void run() {
 			Looper.prepare();
 			looper = Looper.myLooper();
-			showMessage("Starting server thread");
+
+			ServerSocket serverSocket = null;
+			boolean listening = true;
 			try {
-				server = new ServerSocket(PORT);
-				Socket client = null;
-				while ((client = server.accept()) != null) {
-					ClientThread clientThread = new ClientThread(client);
-					clientThread.start();
+				serverSocket = new ServerSocket(PORT);
+				showMessage("Started listening on port " + PORT);
+
+				int id = 0;
+				while (listening) {
+					new ClientThread(id++, serverSocket.accept()).start();
 				}
-				server.close();
+
+				Looper.loop();
+			} catch (IOException e) {
+				listening = false;
+				Log.e(TAG, "an error occured in the server", e);
+			} finally {
+				try {
+					serverSocket.close();
+					showMessage("Stopped listening on port " + PORT);
+				} catch (IOException e) {
+					Log.e(TAG, "failed to close server socket", e);
+				}
 				Looper.myLooper().quit();
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
-			Looper.loop();
 		}
 
 		public void quit() {
-			if (server != null) {
+			if (serverSocket != null) {
 				try {
-					server.close();
+					serverSocket.close();
 				} catch (IOException e) {
 					// TODO: handle it
 				}
@@ -135,41 +147,54 @@ public class WifidroidService extends Service {
 	}
 
 	private class ClientThread extends Thread {
-		private Socket client;
 
-		public ClientThread(Socket client) {
-			this.client = client;
+		private Socket clientSocket;
+		private boolean listening;
 
-			setName("client thread");
+		public ClientThread(int id, Socket clientSocket) {
+			if (clientSocket == null) {
+				throw new NullPointerException();
+			}
+
+			this.clientSocket = clientSocket;
+
+			setName("client thread " + id);
 			setDaemon(true);
 		}
 
 		@Override
 		public void run() {
 			Looper.prepare();
-			InputStream in = null;
-			String line = null;
-			showMessage("client " + client.getInetAddress() + " connected");
+			BufferedReader in = null;
+			listening = true;
 			try {
-				in = client.getInputStream();
-				BufferedReader reader = new BufferedReader(
-						new InputStreamReader(in));
-				while ((line = reader.readLine()) != null) {
-					showMessage("client: " + line);
+				in = new BufferedReader(new InputStreamReader(
+						clientSocket.getInputStream()));
+				String input;
+				Log.d(TAG, "start listening for messages");
+				while (listening && (input = in.readLine()) != null) {
+					proccesCommand(input);
 				}
-				client.close();
-				Looper.myLooper().quit();
-			} catch (IOException e) {
-				Log.e("WifidroidService",
-						"and error occured while trying to read messages from the client");
+				Log.d(TAG, "stop listening for messages");
+			} catch (IOException ex) {
+				Log.e(TAG, "An error occured while listening from the socket",
+						ex);
 			} finally {
 				try {
-					in.close();
-				} catch (IOException e) {
-					// dont care
+					if (in != null) {
+						in.close();
+					}
+					clientSocket.close();
+				} catch (IOException ex) {
+					Log.e(TAG, "Failed to close connection", ex);
 				}
 			}
+
 			Looper.loop();
+		}
+
+		private void proccesCommand(String input) {
+			showMessage("message: " + input);
 		}
 	}
 
