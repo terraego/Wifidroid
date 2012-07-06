@@ -1,0 +1,26 @@
+package nl.wifidroid.network;
+
+public class WifiConnection extends Connection {
+
+	
+	public void Create();
+	@Override
+	public void Disconnect() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void Connect() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void Close() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+}

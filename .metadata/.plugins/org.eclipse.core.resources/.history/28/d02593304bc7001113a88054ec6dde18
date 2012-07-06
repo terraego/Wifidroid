@@ -1,0 +1,171 @@
+package nl.wifidroid.network;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import nl.wifidroid.main.WifidroidService;
+
+import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+import android.widget.Toast;
+
+public class WifiConnection extends Connection {
+	
+	private ServerThread thread;
+	public static final int PORT = 12345;
+	private Handler handler;
+	private Context context;
+	
+	public void Create(Context context, Handler handle){
+		handler = handle;
+		
+	}
+	
+	@Override
+	public void Disconnect() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void Connect() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void Close() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void setHandler(Handler handle){
+		handler = handle;
+	}
+	
+	private void showMessage(final CharSequence text) {
+		Log.d("WifiDroidService", text.toString());
+		handler.post(new Runnable() {
+
+			public void run() {
+				Toast.makeText(WifidroidService.this, text, Toast.LENGTH_SHORT)
+						.show();
+			}
+		});
+	}
+	
+	private class ServerThread extends Thread {
+		private Looper looper;
+		private ServerSocket serverSocket;
+
+		public ServerThread() {
+			setName("server thread");
+			setDaemon(true);
+		}
+
+		@Override
+		public void run() {
+			Looper.prepare();
+			looper = Looper.myLooper();
+
+			ServerSocket serverSocket = null;
+			boolean listening = true;
+			try {
+				serverSocket = new ServerSocket(PORT);
+				showMessage("Started listening on port " + PORT);
+
+				int id = 0;
+				while (listening) {
+					new ClientThread(id++, serverSocket.accept()).start();
+				}
+
+				Looper.loop();
+			} catch (IOException e) {
+				listening = false;
+				Log.e(TAG, "an error occured in the server", e);
+			} finally {
+				try {
+					serverSocket.close();
+					showMessage("Stopped listening on port " + PORT);
+				} catch (IOException e) {
+					Log.e(TAG, "failed to close server socket", e);
+				}
+				Looper.myLooper().quit();
+			}
+		}
+
+		public void quit() {
+			if (serverSocket != null) {
+				try {
+					serverSocket.close();
+				} catch (IOException e) {
+					// TODO: handle it
+				}
+			}
+			if (looper != null) {
+				looper.quit();
+			}
+
+		}
+	}
+
+	private class ClientThread extends Thread {
+
+		private Socket clientSocket;
+		private boolean listening;
+
+		public ClientThread(int id, Socket clientSocket) {
+			if (clientSocket == null) {
+				throw new NullPointerException();
+			}
+
+			this.clientSocket = clientSocket;
+
+			setName("client thread " + id);
+			setDaemon(true);
+		}
+
+		@Override
+		public void run() {
+			Looper.prepare();
+			BufferedReader in = null;
+			listening = true;
+			try {
+				in = new BufferedReader(new InputStreamReader(
+						clientSocket.getInputStream()));
+				String input;
+				Log.d(TAG, "start listening for messages");
+				while (listening && (input = in.readLine()) != null) {
+					proccesCommand(input);
+				}
+				Log.d(TAG, "stop listening for messages");
+			} catch (IOException ex) {
+				Log.e(TAG, "An error occured while listening from the socket",
+						ex);
+			} finally {
+				try {
+					if (in != null) {
+						in.close();
+					}
+					clientSocket.close();
+				} catch (IOException ex) {
+					Log.e(TAG, "Failed to close connection", ex);
+				}
+			}
+
+			Looper.loop();
+		}
+
+		private void proccesCommand(String input) {
+			showMessage("message: " + input);
+		}
+	}
+
+
+	
+}

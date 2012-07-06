@@ -1,0 +1,86 @@
+package nl.wifidroid.main;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import nl.wifidroid.network.Connection;
+import nl.wifidroid.network.WifiConnection;
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
+import android.widget.Toast;
+import android.os.Binder;
+
+public class WifidroidService extends Service {
+
+	private NotificationManager notifier;
+	private final IBinder mBinder = new LocalBinder();
+	private Handler handler;
+	private Connection connection;
+
+	public class LocalBinder extends Binder {
+		WifidroidService getService() {
+			return WifidroidService.this;
+		}
+	}
+
+	@Override
+	public void onCreate() {
+		handler = new Handler();
+
+		notifier = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		// showNotification();
+		connection = new WifiConnection();
+		((WifiConnection) connection).Create(this.getApplicationContext(), handler);
+		thread = new ServerThread();
+		thread.start();
+	}
+
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		showMessage("Started" + startId + ": " + intent);
+		return START_STICKY;
+	}
+
+	@Override
+	public void onDestroy() {
+		notifier.cancel(R.string.hello_world);
+		thread.quit();
+
+		showMessage("Service stopped");
+	}
+
+	@Override
+	public IBinder onBind(Intent intent) {
+		return mBinder;
+	}
+
+	// private void showNotification() {
+	// CharSequence text = "Service started";
+	//
+	// Notification notification = new Notification(R.drawable.ic_launcher,
+	// text, System.currentTimeMillis());
+	//
+	// PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+	// new Intent(this, WifiDroidServerActivity.class), 0);
+	//
+	// notification.setLatestEventInfo(this, "Service started", text,
+	// contentIntent);
+	//
+	// notifier.notify(R.string.hello_world, notification);
+	// }
+
+	
+}

@@ -1,0 +1,7 @@
+package nl.wifidroid.network;
+
+public abstract class Connection {
+
+	public abstract void Disconnect();
+	public abstract void listen();
+}

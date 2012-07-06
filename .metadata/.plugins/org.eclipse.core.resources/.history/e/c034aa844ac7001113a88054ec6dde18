@@ -1,0 +1,6 @@
+package nl.wifidroid.network;
+
+public class WifiConnection extends Connection {
+
+	
+}
