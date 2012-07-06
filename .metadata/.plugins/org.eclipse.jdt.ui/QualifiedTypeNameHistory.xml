@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.io.PrintWriter"/>
 <fullyQualifiedTypeName name="java.io.DataInputStream"/>
 <fullyQualifiedTypeName name="java.io.DataOutputStream"/>
 <fullyQualifiedTypeName name="nl.wifidroid.main.WifidroidclientActivity"/>
@@ -12,4 +11,16 @@
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="nl.wifidroid.main.WifidroidService.LocalBinder"/>
+<fullyQualifiedTypeName name="android.os.Handler"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="nl.wifidroid.network.Connection"/>
+<fullyQualifiedTypeName name="nl.wifidroid.network.WifiConnection"/>
+<fullyQualifiedTypeName name="java.net.InetAddress"/>
+<fullyQualifiedTypeName name="java.io.PrintWriter"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="nl.wifidroid.main.R.attr"/>
+<fullyQualifiedTypeName name="nl.wifidroid.main.R.menu"/>
+<fullyQualifiedTypeName name="nl.wifidroid.main.R.id"/>
+<fullyQualifiedTypeName name="nl.wifidroid.main.R.layout"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 </qualifiedTypeNameHistroy>

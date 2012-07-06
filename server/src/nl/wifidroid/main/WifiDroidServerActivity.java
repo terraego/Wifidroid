@@ -14,11 +14,16 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class WifiDroidServerActivity extends Activity {
 
 	private WifidroidService Backgroundservice = null;
+	private Button startService;
+	private Button stopService;
 
 	
 	/** Called when the activity is first created. */
@@ -27,11 +32,11 @@ public class WifiDroidServerActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         Toast.makeText(this, "Starting Intent", Toast.LENGTH_SHORT).show();
-        if(Backgroundservice == null)
-        {
-        	doBindService();
-        }
-    }
+        startService = (Button) findViewById(R.id.startService);
+        stopService = (Button) findViewById(R.id.stopService);
+        
+        doBindService();
+	}
 
     private ServiceConnection service_connection = new ServiceConnection(){
     	public void onServiceConnected(ComponentName classname, IBinder service){

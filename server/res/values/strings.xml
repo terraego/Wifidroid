@@ -4,5 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_wifi_droid_server">WifiDroidServerActivity</string>
+    <string name="StartService">&quot;Start Service&quot;</string>
+    <string name="StopService">&quot;Stop Service&quot;</string>
 
 </resources>
