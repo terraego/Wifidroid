@@ -1,34 +1,31 @@
 package nl.wifidroid.main;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
 
-import nl.wifidroid.network.Connection;
-import nl.wifidroid.network.WifiConnection;
+import com.esotericsoftware.kryonet.Connection;
 
-import android.app.Notification;
+import nl.wifidroid.network.AuthenticationHandler;
+import nl.wifidroid.network.DefaultWifiDroidServer;
+import nl.wifidroid.network.DeviceConnection;
+import nl.wifidroid.network.Message;
+import nl.wifidroid.network.MessageHandler;
+import nl.wifidroid.network.WifiDroidServer;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
-import android.os.Binder;
 
 public class WifidroidService extends Service {
 
+	public static final String TAG = "WifidroidService";
 	private NotificationManager notifier;
 	private final IBinder mBinder = new LocalBinder();
 	private Handler handler;
-	private Connection connection;
+	private WifiDroidServer server;
 
 	public class LocalBinder extends Binder {
 		WifidroidService getService() {
@@ -39,47 +36,63 @@ public class WifidroidService extends Service {
 	@Override
 	public void onCreate() {
 		handler = new Handler();
-
 		notifier = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		
-		connection = new WifiConnection();
-		((WifiConnection) connection).Create(this.getApplicationContext(), handler);
+
+		server = new DefaultWifiDroidServer();
+		server.addMessageHandler(new AuthenticationHandler());
+		server.addMessageHandler(new MyMessageHandler());
+
+		try {
+			server.start();
+			Log.d(TAG, "Started listening on port " + WifiDroidServer.PORT_TCP);
+		} catch (IOException e) {
+			Log.e(TAG, "Failed to start server", e);
+		}
+	}
+
+	private void showMessage(final CharSequence message) {
+		handler.post(new Runnable() {
+
+			public void run() {
+				Toast.makeText(getApplicationContext(), message,
+						Toast.LENGTH_SHORT);
+				Log.d(TAG, message.toString());
+			}
+		});
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		//showMessage("Started" + startId + ": " + intent);
 		return START_STICKY;
 	}
 
 	@Override
 	public void onDestroy() {
 		notifier.cancel(R.string.hello_world);
-		connection.Close();
-		//showMessage("Service stopped");
+		try {
+			server.stop();
+		} catch (IOException e) {
+			Log.e(TAG, "Failed to stop server", e);
+		}
 	}
 
 	@Override
 	public IBinder onBind(Intent intent) {
 		return mBinder;
 	}
-	
-	public Connection getConnection(){
-		return connection;
+
+	private class MyMessageHandler extends MessageHandler {
+
+		@Override
+		public int handleMessage(DeviceConnection con, Message command) {
+			String actionCommand = command.getActionCommand();
+			String from = con.getComputerName();
+
+			showMessage("received command: " + actionCommand + " from " + from);
+			
+			return 0;
+		}
+
 	}
 
-	// private void showNotification() {
-	// CharSequence text = "Service started";
-	//
-	// Notification notification = new Notification(R.drawable.ic_launcher,
-	// text, System.currentTimeMillis());
-	//
-	// PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-	// new Intent(this, WifiDroidServerActivity.class), 0);
-	//
-	// notification.setLatestEventInfo(this, "Service started", text,
-	// contentIntent);
-	//
-	// notifier.notify(R.string.hello_world, notification);
-	// }	
 }

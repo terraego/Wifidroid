@@ -8,9 +8,8 @@ import java.io.StringWriter;
  * @author Maarten Blokker
  */
 public abstract class ConsoleCommandHandler {
-	protected ConsoleController console;
 
-	public abstract void handleCommand(String command);
+	protected ConsoleController console;
 
 	public void setConsole(ConsoleController console) {
 		this.console = console;
@@ -21,13 +20,13 @@ public abstract class ConsoleCommandHandler {
 	}
 
 	public void print(String message) {
-		console.print("[" + getClass().getSimpleName() + "] " + message);
+		console.print(getClass().getSimpleName(), message);
 	}
 
 	public void error(Exception e) {
-		StringWriter writer = new StringWriter();
-		e.printStackTrace(new PrintWriter(writer));
-
-		print(writer.toString());
+		console.print(getClass().getSimpleName(), e);
 	}
+
+	public abstract void handleCommand(String command);
+
 }

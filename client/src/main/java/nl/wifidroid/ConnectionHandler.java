@@ -5,22 +5,40 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.List;
+
+import nl.wifidroid.network.DefaultWifiDroidClient;
+import nl.wifidroid.network.Message;
+import nl.wifidroid.network.WifiDroidClient;
 
 public class ConnectionHandler extends ConsoleCommandHandler {
 
-	public static final int PORT = 12345;
-	private Socket socket;
+	private WifiDroidClient client;
+
+	public ConnectionHandler(WifiDroidClient client) {
+		this.client = client;
+	}
 
 	@Override
 	public void handleCommand(String command) {
 		try {
-			if (command.startsWith("connect")) {
+			if (command.equals("discover")) {
+				List<String> discovered = client.discoverDevices(5000);
+				if (!discovered.isEmpty()) {
+					print("devices found: ");
+					for (String address : discovered) {
+						print("   " + address);
+					}
+				} else {
+					print("no devices found");
+				}
+			} else if (command.startsWith("connect")) {
 				String ip = command.substring("set host".length());
-				connect(ip);
+				client.connect(ip, 5000);
 			} else if (command.equals("disconnect")) {
-				disconnect();
+				client.disconnect();
 			} else if (command.startsWith("send message")) {
-				if (!isConnected()) {
+				if (!client.isConnected()) {
 					print("not connected");
 					return;
 				}
@@ -34,49 +52,20 @@ public class ConnectionHandler extends ConsoleCommandHandler {
 		} catch (Exception e) {
 			error(e);
 			try {
-				disconnect();
+				client.disconnect();
 			} catch (IOException ex) {
 				error(e);
 			}
 		}
 	}
 
-	private void connect(String ip) throws UnknownHostException, IOException {
-		print("connecting to " + ip + ":" + PORT);
-		socket = new Socket(ip, PORT);
-		print("connected");
-	}
-
-	private void disconnect() throws IOException {
-		if (socket != null) {
-			socket.close();
-			socket = null;
-			print("disconnected");
-		}
-	}
-
-	private boolean isConnected() {
-		return socket != null;
-	}
-
 	private void sendMessage(String message) throws IOException {
-		if (!isConnected()) {
+		if (!client.isConnected()) {
 			throw new RuntimeException("not connected");
 		}
 
-		Writer out = null;
-		try {
-			out = new PrintWriter(socket.getOutputStream(), true);
-			out.write(message.trim());
-			out.flush();
-			
-			print("message sent: "+message);
-		} catch (IOException e) {
-			throw e;
-		} finally {
-			if (out != null) {
-				out.close();
-			}
-		}
+		Message m = new Message();
+		m.setActionCommand(message);
+		client.sendMessage(m);
 	}
 }

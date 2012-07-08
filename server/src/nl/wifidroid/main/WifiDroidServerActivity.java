@@ -14,53 +14,51 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
 public class WifiDroidServerActivity extends Activity {
-
+	public static final String TAG = "WifidroidService";
 	private WifidroidService Backgroundservice = null;
 	private Button startService;
 	private Button stopService;
 
-	
 	/** Called when the activity is first created. */
 	@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
-        Toast.makeText(this, "Starting Intent", Toast.LENGTH_SHORT).show();
-        startService = (Button) findViewById(R.id.startService);
-        stopService = (Button) findViewById(R.id.stopService);
-        
-        doBindService();
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		startService = (Button) findViewById(R.id.startService);
+		stopService = (Button) findViewById(R.id.stopService);
+
+		doBindService();
 	}
 
-    private ServiceConnection service_connection = new ServiceConnection(){
-    	public void onServiceConnected(ComponentName classname, IBinder service){
-    		Backgroundservice = ((LocalBinder) service).getService();
-    		Toast.makeText(WifiDroidServerActivity.this, "Connected",Toast.LENGTH_LONG).show();
-    	}
-    	
-    	public void onServiceDisconnected(ComponentName className){
-    		Backgroundservice = null;
-    	}
-    };
+	private ServiceConnection service_connection = new ServiceConnection() {
+		public void onServiceConnected(ComponentName classname, IBinder service) {
+			Backgroundservice = ((LocalBinder) service).getService();
 
-    public void shownotification(CharSequence text)
-    {
-    	Toast.makeText(WifiDroidServerActivity.this, text, Toast.LENGTH_SHORT).show();
-    }
-    
-    public void doBindService(){
-    	bindService(new Intent(this,WifidroidService.class), service_connection,Context.BIND_AUTO_CREATE);
-    }
-    
+			shownotification("Service connected");
+		}
+
+		public void onServiceDisconnected(ComponentName className) {
+			Backgroundservice = null;
+			shownotification("Service disconnected");
+		}
+	};
+
+	public void shownotification(CharSequence text) {
+		Log.d(TAG, text.toString());
+		Toast.makeText(WifiDroidServerActivity.this, text, Toast.LENGTH_SHORT)
+				.show();
+	}
+
+	public void doBindService() {
+		bindService(new Intent(this, WifidroidService.class),
+				service_connection, Context.BIND_AUTO_CREATE);
+	}
+
 }
-
-
-
-
-
