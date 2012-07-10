@@ -35,9 +35,9 @@ public class ContactsLoader {
 							+ contactId, null, null);
 			while (emails.moveToNext()) {
 				// This would allow you get several email addresses
-				String emailAddress = emails
+				/*String emailAddress = emails
 						.getString(emails
-								.getColumnIndex(ontactsContract.CommonDataKinds.));
+								.getColumnIndex(ontactsContract.CommonDataKinds.));*/
 			}
 			emails.close();
 			cursor.close();

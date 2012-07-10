@@ -5,20 +5,39 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/stopService"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
-        android:text="@string/StopService" />
+        android:layout_marginTop="85dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/stopService"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="76dp"
+            android:text="@string/StopService" 
+            android:onClick="stopService"/>
+
+        <Button
+            android:id="@+id/startService"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/StartService" 
+            android:onClick="startService"/>
+    </LinearLayout>
 
     <Button
-        android:id="@+id/startService"
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/stopService"
-        android:layout_below="@+id/stopService"
-        android:text="@string/StartService" />
+        android:layout_below="@+id/linearLayout1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp"
+        android:text="Start Debugging" 
+        android:onClick="EnterDebugging"/>
 
 </RelativeLayout>

@@ -30,11 +30,11 @@ public class WifiDroidServerActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.setContentView(R.layout.activity_wifi_droid_server);
 
 		startService = (Button) findViewById(R.id.startService);
 		stopService = (Button) findViewById(R.id.stopService);
 
-		doBindService();
 	}
 
 	private ServiceConnection service_connection = new ServiceConnection() {
@@ -60,5 +60,28 @@ public class WifiDroidServerActivity extends Activity {
 		bindService(new Intent(this, WifidroidService.class),
 				service_connection, Context.BIND_AUTO_CREATE);
 	}
+	
+	public void startService (View view){
+    	if(Backgroundservice ==null){
+    		bindService(new Intent(this,WifidroidService.class),service_connection,Context.BIND_AUTO_CREATE);
+    	}else{
+    		shownotification("Service al gestart");
+    	}
+    }
+    
+    public void stopService(View view){
+    	if(Backgroundservice !=null){
+    		
+    	}
+    }
+    
+    public void EnterDebugging(View view){
+    	if(Backgroundservice == null){
+    		shownotification("Start the service before debugging");
+    	}else{
+    		Intent intent = new Intent(this,DebugActivity.class);
+    		startActivity(intent);
+    	}
+    }
 
 }

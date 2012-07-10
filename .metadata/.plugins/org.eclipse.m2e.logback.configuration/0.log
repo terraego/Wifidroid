@@ -462,3 +462,83 @@
 2012-07-06 19:19:45,901 [Worker-4] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updating index for repository: central|http://repo.maven.apache.org/maven2
 2012-07-06 19:19:45,949 [Worker-4] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 8
 2012-07-06 19:19:49,022 [Worker-4] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updated index for repository: central|http://repo.maven.apache.org/maven2 in 3124 ms
+2012-07-10 20:18:36,339 [Worker-6] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updating index for repository: central|http://repo.maven.apache.org/maven2
+2012-07-10 20:18:36,474 [Worker-6] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 8
+2012-07-10 20:18:36,808 [Worker-3] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: nl.wifidroid:WifiDroid:1.0-SNAPSHOT @ C:\Users\Kenneth\Desktop\Git\wifidroid\client\pom.xml.
+2012-07-10 20:18:37,047 [Worker-3] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for com.esotericsoftware.kryo:kryonet:jar:2.12 is missing, no dependency information available
+2012-07-10 20:18:39,107 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 20:18:39,109 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2012-07-10 20:18:39,122 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 20:18:39,122 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Kenneth\Desktop\Git\wifidroid\client\src\test\resources
+2012-07-10 20:18:39,513 [Worker-3] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: nl.wifidroid:WifiDroid:1.0-SNAPSHOT @ C:\Users\Kenneth\Desktop\Git\wifidroid\client\pom.xml.
+2012-07-10 20:18:39,538 [Worker-3] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for com.esotericsoftware.kryo:kryonet:jar:2.12 is missing, no dependency information available
+2012-07-10 20:18:39,674 [Worker-6] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updated index for repository: central|http://repo.maven.apache.org/maven2 in 3338 ms
+2012-07-10 20:18:39,691 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 20:18:39,693 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2012-07-10 20:18:39,695 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 20:18:39,695 [Worker-3] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Kenneth\Desktop\Git\wifidroid\client\src\test\resources
+2012-07-10 20:20:28,722 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 20:20:28,722 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2012-07-10 20:20:28,724 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 20:20:28,724 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Kenneth\Desktop\Git\wifidroid\client\src\test\resources
+2012-07-10 20:20:33,211 [Worker-4] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: nl.wifidroid:WifiDroid:1.0-SNAPSHOT @ C:\Users\Kenneth\Desktop\Git\wifidroid\client\pom.xml.
+2012-07-10 20:20:33,259 [Worker-4] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for com.esotericsoftware.kryo:kryonet:jar:2.12 is missing, no dependency information available
+2012-07-10 20:20:33,372 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 20:20:33,373 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2012-07-10 20:20:33,376 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 20:20:33,376 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Kenneth\Desktop\Git\wifidroid\client\src\test\resources
+2012-07-10 20:21:45,349 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 20:21:45,349 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2012-07-10 20:21:45,350 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 20:21:45,351 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Kenneth\Desktop\Git\wifidroid\client\src\test\resources
+2012-07-10 20:37:25,630 [main] INFO  o.e.m2e.actions.ExecutePomAction - Using existing launch configuration
+2012-07-10 20:37:28,649 [Worker-5] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\Kenneth\Desktop\Git\wifidroid\client
+2012-07-10 20:37:28,649 [Worker-5] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn  -B 
+2012-07-10 21:02:17,007 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 21:02:17,014 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2012-07-10 21:02:17,024 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 21:02:17,024 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Kenneth\Desktop\Git\wifidroid\client\src\test\resources
+2012-07-10 21:02:17,515 [Worker-3] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updating index for repository: central|http://repo.maven.apache.org/maven2
+2012-07-10 21:02:17,562 [Worker-3] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 8
+2012-07-10 21:02:18,300 [Worker-3] ERROR o.e.m.c.i.i.nexus.NexusIndexManager - Unable to update index for central|http://repo.maven.apache.org/maven2
+org.apache.lucene.store.LockReleaseFailedException: failed to delete C:\Users\Kenneth\.m2\repository\.cache\m2e\1.1.0\26522e0d83a422eed93329ece7565cfc\min\write.lock
+	at org.apache.lucene.store.SimpleFSLock.release(SimpleFSLockFactory.java:149) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.index.IndexWriter.closeInternal(IndexWriter.java:1668) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.index.IndexWriter.close(IndexWriter.java:1602) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.index.IndexWriter.close(IndexWriter.java:1578) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.maven.index.context.NexusIndexWriter.close(NexusIndexWriter.java:58) ~[indexer-core-3.1.0.jar:3.1.0]
+	at org.apache.maven.index.context.DefaultIndexingContext.closeReaders(DefaultIndexingContext.java:713) ~[indexer-core-3.1.0.jar:3.1.0]
+	at org.apache.maven.index.context.DefaultIndexingContext.close(DefaultIndexingContext.java:557) ~[indexer-core-3.1.0.jar:3.1.0]
+	at org.apache.maven.index.DefaultNexusIndexer.removeIndexingContext(DefaultNexusIndexer.java:195) ~[org.eclipse.m2e.maven.indexer_1.1.0.20120529-1956/:na]
+	at org.eclipse.m2e.core.internal.index.nexus.NexusIndexManager.updateRemoteIndex(NexusIndexManager.java:1141) [org.eclipse.m2e.core_1.1.0.20120530-0009.jar:na]
+	at org.eclipse.m2e.core.internal.index.nexus.NexusIndexManager.updateIndex(NexusIndexManager.java:1081) [org.eclipse.m2e.core_1.1.0.20120530-0009.jar:na]
+	at org.eclipse.m2e.core.internal.index.nexus.NexusIndexManager$1.run(NexusIndexManager.java:658) [org.eclipse.m2e.core_1.1.0.20120530-0009.jar:na]
+	at org.eclipse.m2e.core.internal.index.nexus.IndexUpdaterJob.run(IndexUpdaterJob.java:71) [org.eclipse.m2e.core_1.1.0.20120530-0009.jar:na]
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54) [org.eclipse.core.jobs_3.5.200.v20120521-2346.jar:na]
+2012-07-10 21:06:41,452 [Worker-4] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updating index for repository: central|http://repo.maven.apache.org/maven2
+2012-07-10 21:06:41,501 [Worker-4] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 8
+2012-07-10 21:06:44,112 [Worker-4] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updated index for repository: central|http://repo.maven.apache.org/maven2 in 2663 ms
+2012-07-10 21:10:23,660 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 21:10:23,668 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2012-07-10 21:10:23,676 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 21:10:23,677 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Kenneth\Desktop\Git\wifidroid\client\src\test\resources
+2012-07-10 21:10:25,161 [Worker-4] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updating index for repository: central|http://repo.maven.apache.org/maven2
+2012-07-10 21:10:25,313 [Worker-4] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 8
+2012-07-10 21:10:28,576 [Worker-4] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updated index for repository: central|http://repo.maven.apache.org/maven2 in 3415 ms
+2012-07-10 21:16:18,489 [Worker-3] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updating index for repository: central|http://repo.maven.apache.org/maven2
+2012-07-10 21:16:18,541 [Worker-3] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 8
+2012-07-10 21:16:20,357 [Worker-3] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updated index for repository: central|http://repo.maven.apache.org/maven2 in 1871 ms
+2012-07-10 21:16:50,079 [Worker-4] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updating index for repository: central|http://repo.maven.apache.org/maven2
+2012-07-10 21:16:50,137 [Worker-4] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 8
+2012-07-10 21:16:52,663 [Worker-4] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updated index for repository: central|http://repo.maven.apache.org/maven2 in 2587 ms
+2012-07-10 21:20:31,563 [Worker-1] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updating index for repository: central|http://repo.maven.apache.org/maven2
+2012-07-10 21:20:31,614 [Worker-1] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 8
+2012-07-10 21:20:33,540 [Worker-1] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updated index for repository: central|http://repo.maven.apache.org/maven2 in 1980 ms
+2012-07-10 21:21:59,445 [Worker-4] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: nl.wifidroid:WifiDroid:1.0-SNAPSHOT @ C:\Users\Kenneth\Desktop\Git\wifidroid\client\pom.xml.
+2012-07-10 21:22:00,000 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 21:22:00,002 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2012-07-10 21:22:00,013 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2012-07-10 21:22:00,013 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Kenneth\Desktop\Git\wifidroid\client\src\test\resources
+2012-07-10 21:33:33,458 [Worker-0] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updating index for repository: central|http://repo.maven.apache.org/maven2
+2012-07-10 21:33:33,509 [Worker-0] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 8
+2012-07-10 21:33:38,247 [Worker-0] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updated index for repository: central|http://repo.maven.apache.org/maven2 in 4792 ms
